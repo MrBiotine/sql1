@@ -26,7 +26,7 @@ WHERE e.ville ="Lyon";
 */
 SELECT n.note
 FROM notation n
-WHERE .note >= 10;
+WHERE n.note >= 10;
 
 /*g) Liste des épreuves dont la date se situe entre le 1er janvier et le 30 juin 2014*/
 SELECT e.numepreuve, e.datepreuve
@@ -37,5 +37,21 @@ WHERE e.datepreuve >= "2014-01-01" AND e.datepreuve <= "2014-06-30";
 */
 SELECT e.nom,e.prenom
 FROM etudiant e
-WHERE e.ville LIKE ("ll%" or "%ll" or "%ll%");
+WHERE e.ville LIKE ("%ll%");
+
+/*i) Prénoms des étudiants de nom Dupont, Durand ou Martin */
+SELECT e.nom,e.prenom
+FROM etudiant e
+WHERE e.nom LIKE ("Dupont ") or e.nom LIKE ("Durant") or e.nom  LIKE ("Martin");
+
+/*j) Somme des coefficients de toutes les matières */
+SELECT SUM(m.coef) as somme_coef
+FROM matiere m;
+
+/*k) Nombre total d'épreuves*/
+
+
+
+
+
 
