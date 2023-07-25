@@ -31,23 +31,29 @@ CREATE TABLE IF NOT EXISTS `acheter` (
   CONSTRAINT `FK_acheter_fournisseurs` FOREIGN KEY (`nofour_id`) REFERENCES `fournisseurs` (`nofour`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table stocks.acheter : ~15 rows (environ)
+-- Listage des données de la table stocks.acheter : ~21 rows (environ)
 INSERT INTO `acheter` (`noart_id`, `nofour_id`, `prixachat`, `delai`) VALUES
 	(2, 1, 30, 2),
 	(1, 2, 9.8, 2),
 	(2, 5, 9.8, 2),
 	(2, 2, 28, 4),
-	(10, 6, 1.23, 1.5),
-	(10, 6, 1.23, 1.5),
-	(10, 6, 1.23, 1.5),
 	(9, 4, 999, 5),
 	(8, 2, 199.89, 11),
 	(9, 2, 989, 10.5),
 	(8, 5, 221, 5),
-	(3, 7, 1.23, 1.5),
-	(7, 3, 45, 4),
+	(7, 3, 43.2, 4),
+	(4, 5, 35, 4),
 	(4, 3, 45, 4),
-	(4, 3, 45, 4);
+	(10, 6, 1.26, 5.5),
+	(10, 8, 1.22, 6),
+	(5, 8, 1.22, 6),
+	(5, 1, 32.3, 4),
+	(6, 1, 32.3, 4),
+	(3, 5, 9.8, 2),
+	(8, 2, 199.89, 11),
+	(8, 2, 199.89, 11),
+	(9, 5, 879, 6),
+	(1, 4, 14.5, 3);
 
 -- Listage de la structure de table stocks. articles
 CREATE TABLE IF NOT EXISTS `articles` (
