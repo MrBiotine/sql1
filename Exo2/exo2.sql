@@ -83,11 +83,18 @@ ORDER BY nom;
 
 /*then use it */
 
-SELECT year(e.dateEval) AS promotion, AVG(moyenne_general)
+SELECT year(e.dateEval) AS promotion, AVG(moyenne_general) AS moy_promo
 FROM moy_gen, evaluer e
 GROUP BY promotion;
 
 /*g) Quels sont les étudiants qui ont une moyenne générale supérieure ou égale à la moyenne
 générale de la promotion ? (cf. question e)*/
+
+SELECT nom, moyenne_general, AVG(moyenne_general) AS moy_promo
+FROM moy_gen, evaluer e
+GROUP BY nom;
+HAVING moyenne_general >= moy_promo;
+
+
 
 

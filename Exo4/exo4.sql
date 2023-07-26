@@ -49,7 +49,112 @@ SELECT SUM(m.coef) as somme_coef
 FROM matiere m;
 
 /*k) Nombre total d'épreuves*/
+SELECT COUNT(numepreuve) AS "nombre d'épreuve"
+FROM epreuve;
+/*
+i) Nombre de notes indéterminées (NULL)
+*/
+SELECT COUNT(n.note)
+FROM notation n
+HAVING n.note IS NULL ;
 
+/*
+m)  Liste des épreuves (numéro, date et lieu) incluant le libellé de la matière 
+*/
+SELECT e.numepreuve, m.libelle, e.datepreuve, e.lieu
+FROM epreuve e
+INNER JOIN matiere m
+    ON e.numepreuve = m.codemat
+ORDER BY e.numepreuve;
+
+/*
+n) Liste des notes en précisant pour chacune le nom et le prénom de l'étudiant qui l'a 
+obtenue 
+*/
+SELECT n.note, e.nom, e.prenom
+FROM notation n
+INNER JOIN etudiant e
+    ON n.numetu_id = e.numetu
+ORDER BY e.note
+
+/*
+o) Liste des notes en précisant pour chacune le nom et le prénom de l'étudiant qui l'a 
+obtenue et le libellé de la matière concernée 
+*/
+
+/*create a view from query m)*/
+CREATE VIEW liste_epreuves
+SELECT e.numepreuve, m.libelle, e.datepreuve, e.lieu
+FROM epreuve e
+INNER JOIN matiere m
+    ON e.numepreuve = m.codemat;
+
+
+/*then use it in the query below :*/
+SELECT n.note, e.nom, e.prenom, libelle
+FROM liste_epreuves, notation n
+INNER JOIN etudiant e
+    ON n.numetu_id = e.numetu
+INNER JOIN epreuve ep
+    ON n.numepreuve_id = ep.numepreuve
+ORDER BY n.note
+
+/*
+p) Nom et prénom des étudiants qui ont obtenu au moins une note égale à 20 
+*/
+SELECT e.nom, e.prenom,COUNT(n.note) AS nb_notes
+FROM notation n
+INNER JOIN etudiant e
+    ON n.numetu_id = e.numetu
+GROUP BY e.nom, e.prenom
+HAVING nb_notes >= 1 AND n.note >= 20
+ORDER BY e.nom;
+
+/*
+q) Moyennes des notes de chaque étudiant (indiquer le nom et le prénom) 
+*/
+SELECT e.nom, e.prenom,AVG(n.note) AS "moyenne notes"
+FROM notation n
+INNER JOIN etudiant e
+    ON n.numetu_id = e.numetu
+GROUP BY e.nom, e.prenom
+ORDER BY e.nom;
+
+/*
+r) Moyennes des notes de chaque étudiant (indiquer le nom et le prénom), classées de la 
+meilleure à la moins bonne
+*/
+SELECT e.nom, e.prenom,AVG(n.note) AS "moyenne notes"
+FROM notation n
+INNER JOIN etudiant e
+    ON n.numetu_id = e.numetu
+GROUP BY e.nom, e.prenom
+ORDER BY e.nom DESC;
+
+/*
+s) Moyennes des notes pour les matières (indiquer le libellé) comportant plus d'une épreuve 
+*/
+SELECT libelle, COUNT(numepreuve) AS nb_epreuves, AVG(n.note) AS "moyenne notes"
+FROM liste_epreuves, notation n
+INNER JOIN epreuve ep
+    ON n.numepreuve_id = ep.numepreuve
+GROUP BY libelle
+HAVING nb_epreuves >= 1
+ORDER BY libelle;
+/*
+
+t) Moyennes des notes obtenues aux épreuves (indiquer le numéro d'épreuve) où moins de 6 
+étudiants ont été notés
+*/
+SELECT ep.numepreuve AS nr_epreuve, AVG(n.note) AS "moyenne épreuve", COUNT(e.numetu) AS "nombre d'étudiant" 
+FROM notation n
+INNER JOIN etudiant e
+    ON n.numetu_id = e.numetu
+INNER JOIN epreuve ep
+    ON n.numepreuve_id = ep.numepreuve
+GROUP BY nr_epreuve
+HAVING "nombre d'étudiant" >= 6
+ORDER BY nr_epreuve;
 
 
 

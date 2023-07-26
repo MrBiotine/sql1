@@ -69,7 +69,6 @@ ORDER BY
 	art.noart;
 
 /*j) Délai moyen pour chaque fournisseur proposant au moins 2 articles ?*/
-/*j) Délai moyen pour chaque fournisseur proposant au moins 2 articles ?*/
 SELECT f.nomfour, AVG(a.delai) AS delai_moy
 FROM acheter a
 INNER JOIN fournisseurs f
