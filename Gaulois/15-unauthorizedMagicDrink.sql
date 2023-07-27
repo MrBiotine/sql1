@@ -7,4 +7,4 @@ WHERE b.id_potion NOT IN (
     FROM potion
     WHERE nom_potion = 'Magique'
 )
-ORDER BY p.nom_personnage;personnage
+ORDER BY p.nom_personnage;
